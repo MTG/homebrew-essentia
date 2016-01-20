@@ -16,7 +16,7 @@ class Essentia < Formula
   depends_on "gdbm"
   depends_on "freetype"
   depends_on "libpng"
-  depends_on "python" => "framework"
+  depends_on "python"
   #depends_on :python
   depends_on "homebrew/python/numpy"
   depends_on "libyaml" => :recommended
