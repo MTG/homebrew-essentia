@@ -16,8 +16,7 @@ class Gaia < Formula
   depends_on "qt"
 
   def install
-    system "./waf", "configure", "--download", 
-                                 "--with-python-bindings", 
+    system "./waf", "configure", "--with-python-bindings", 
                                  "--prefix=#{prefix}"
     system "./waf"
     system "./waf", "install"
