@@ -13,7 +13,7 @@ class Gaia < Formula
   depends_on "python"
   depends_on "swig"
   depends_on "libyaml"
-  depends_on "qt"
+  depends_on "cartr/qt4/qt@4"
 
   def install
     system "./waf", "configure", "--download", 
