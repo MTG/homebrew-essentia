@@ -3,9 +3,9 @@ require 'formula'
 class Essentia < Formula
   desc "Library for audio analysis and audio-based music information retrieval"
   homepage "http://essentia.upf.edu"
-  url "https://github.com/MTG/essentia/archive/v2.1_beta2.tar.gz"
-  version "2.1_beta2"
-  sha256 "ddf72ef5c2e3f8bd65dd7e645c14a01a38e1c32ee0890bd2565e693d5c454953"
+  url "https://github.com/MTG/essentia/archive/v2.1_beta3.tar.gz"
+  version "2.1_beta3"
+  sha256 "974b90af6093fd12d6c9ac370f13b0dd1ecf80a418670bf35582ed5d95d65237"
 
   head 'https://github.com/MTG/essentia.git'
 
@@ -18,7 +18,7 @@ class Essentia < Formula
   depends_on "libpng"
   depends_on "python"
   #depends_on :python
-  depends_on "homebrew/python/numpy"
+  depends_on "numpy"
   depends_on "libyaml" => :recommended
   depends_on "fftw" => :recommended
   depends_on "ffmpeg" => :recommended
