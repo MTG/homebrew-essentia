@@ -24,14 +24,24 @@ class Essentia < Formula
   depends_on "ffmpeg" => :recommended
   depends_on "libsamplerate" => :recommended
   depends_on "libtag" => :recommended
-
+  depends_on "gaia" => :optional
 
   def install
-    system "./waf", "configure", "--mode=release", 
-                                 "--with-python", 
-                                 "--with-vamp",
-                                 "--with-examples",
-                                 "--prefix=#{prefix}"
+    if build.with? "gaia"
+      system "./waf", "configure", "--mode=release", 
+                                   "--with-python", 
+                                   "--with-vamp",
+                                   "--with-gaia",
+                                   "--with-examples",
+                                   "--prefix=#{prefix}"
+    end
+    if build.without? "gaia"
+      system "./waf", "configure", "--mode=release", 
+                                   "--with-python", 
+                                   "--with-vamp",
+                                   "--with-examples",
+                                   "--prefix=#{prefix}"
+    end
     system "./waf"
     system "./waf", "install"
   end
