@@ -15,3 +15,8 @@ Or install from master branch:
 ```
 brew install essentia --HEAD
 ```
+
+Install from master branch with Gaia support:
+```
+brew install essentia --HEAD --with-gaia
+```
