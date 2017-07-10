@@ -29,7 +29,8 @@ class Essentia < Formula
   def install
     system "./waf", "configure", "--mode=release", 
                                  "--with-python", 
-                                 "--with-vamp", 
+                                 "--with-vamp",
+                                 "--with-examples",
                                  "--prefix=#{prefix}"
     system "./waf"
     system "./waf", "install"
