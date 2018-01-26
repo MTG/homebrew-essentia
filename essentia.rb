@@ -24,6 +24,7 @@ class Essentia < Formula
   depends_on "ffmpeg" => :recommended
   depends_on "libsamplerate" => :recommended
   depends_on "libtag" => :recommended
+  depends_on "chromaprint" => :recommended
   depends_on "gaia" => :optional
 
   def install
