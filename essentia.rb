@@ -65,7 +65,8 @@ class Essentia < Formula
       system "python2", "./waf"
       system "python2", "./waf", "install"
 
-      virtualenv_install_with_resources :using => "python@2"
+      venv = virtualenv_create(libexec, "python2")
+      venv.pip_install resource("six")
       essentia_path = libexec/"lib/python2.7/site-packages"
       pth_contents = "import site; site.addsitedir('#{essentia_path}')\n"
       (lib/"python2.7/site-packages/homebrew-essentia.pth").write pth_contents
