@@ -9,18 +9,31 @@ class Gaia < Formula
 
   head 'https://github.com/MTG/gaia.git'
 
+  include Language::Python::Virtualenv
+
   depends_on "pkg-config"
-  depends_on "python"
+  depends_on "python@2"
   depends_on "swig"
   depends_on "libyaml"
   depends_on "eigen"
   depends_on "cartr/qt4/qt@4"
 
+  resource "PyYAML" do
+    url "https://files.pythonhosted.org/packages/e3/e8/b3212641ee2718d556df0f23f78de8303f068fe29cdaa7a91018849582fe/PyYAML-5.1.2.tar.gz"
+    sha256 "01adf0b6c6f61bd11af6e10ca52b7d4057dd0be0343eb9283c878cf3af56aee4"
+  end
+
   def install
-    system "./waf", "configure", "--with-python-bindings", 
-                                 "--prefix=#{prefix}"
-    system "./waf"
-    system "./waf", "install"
+    venv = virtualenv_create(libexec, "python2")
+    venv.pip_install resource("PyYAML")
+    gaia_path = libexec/"lib/python2.7/site-packages"
+    pth_contents = "import site; site.addsitedir('#{gaia_path}')\n"
+    (lib/"python2.7/site-packages/homebrew-gaia.pth").write pth_contents
+
+    system "python2", "waf", "configure", "--with-python-bindings", 
+                                          "--prefix=#{prefix}"
+    system "python2", "waf"
+    system "python2", "waf", "install"
   end
 
   #test do
