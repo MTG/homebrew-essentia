@@ -3,9 +3,9 @@ require 'formula'
 class Gaia < Formula
   desc "Audio similarity and classification library"
   homepage "https://essentia.upf.edu"
-  url "https://github.com/MTG/gaia/archive/v2.4.4.tar.gz"
-  version "2.4.4"
-  sha256 "5975a3ecfb334cedea101604cb975402f2a2b59e1d9547ebc6d990d6af2652c8"
+  url "https://github.com/MTG/gaia/archive/v2.4.6.tar.gz"
+  version "2.4.6"
+  sha256 "9e7f57150d3bb9547477624b44103743841409226681bc4b3773dbddfd610b39"
 
   head 'https://github.com/MTG/gaia.git'
 
