@@ -7,6 +7,7 @@ class Essentia < Formula
 
   depends_on "pkg-config" => :build
   depends_on "gcc" => :build
+  depends_on "eigen"
   depends_on "libyaml"
   depends_on "fftw"
   depends_on "ffmpeg"
