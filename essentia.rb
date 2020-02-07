@@ -15,6 +15,7 @@ class Essentia < Formula
   depends_on "libtag"
   depends_on "chromaprint"
   depends_on "gaia" => :optional
+  depends_on "tensorflow" => :optional
 
   option "without-python", "Build without python3 support"
 
@@ -36,11 +37,14 @@ class Essentia < Formula
     ]
 
     if build.with? "gaia"
-      system "python3", "waf", "configure", "--with-gaia", *build_flags
+      build_flags += ["--with-gaia"]
     end
-    if build.without? "gaia"
-      system "python3", "waf", "configure", *build_flags
+
+    if build.with? "tensorflow"
+      build_flags += ["--with-tensorflow"]
     end
+
+    system "python3", "waf", "configure", *build_flags
     system "python3", "waf"
     system "python3", "waf", "install"
 
