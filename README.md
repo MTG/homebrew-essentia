@@ -16,4 +16,4 @@ Install from master branch with Gaia support:
 brew install essentia --HEAD --with-gaia
 ```
 
-By default, the installation includes Python bindings for both Python 3 and Python 2 and both ``python`` and ``python@2`` Homebrew formulas will be installed as dependencies. If you want to avoid those dependencies and not build python extensions, use flags ``--without-python`` and ``--without-python@2``. 
+By default, the installation includes Python bindings for Python 3 and ``python`` Homebrew formula will be installed as a dependency. If you want to avoid it and skip building python extension, use the ``--without-python`` flag. 
