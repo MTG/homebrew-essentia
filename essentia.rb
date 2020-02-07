@@ -17,14 +17,9 @@ class Essentia < Formula
   depends_on "gaia" => :optional
 
   option "without-python", "Build without python3 support"
-  option "without-python@2", "Build without python2 support"
 
   depends_on "python" if build.with? "python"
-  depends_on "python@2" if build.with? "python@2"
-
-  depends_on "numpy" if build.with? "python@2" and build.with? "python"
-  depends_on "numpy" => "--without-python" if build.with? "python@2" and !build.with? "python"
-  depends_on "numpy" => "--without-python@2" if build.with? "python" and !build.with? "python@2"
+  depends_on "numpy" if build.with? "python"
 
   resource "six" do
     url "https://files.pythonhosted.org/packages/16/d8/bc6316cf98419719bd59c91742194c111b6f2e85abac88e496adefaf7afe/six-1.11.0.tar.gz"
@@ -41,13 +36,13 @@ class Essentia < Formula
     ]
 
     if build.with? "gaia"
-      system "./waf", "configure", "--with-gaia", *build_flags
+      system "python3", "waf", "configure", "--with-gaia", *build_flags
     end
     if build.without? "gaia"
-      system "./waf", "configure", *build_flags
+      system "python3", "waf", "configure", *build_flags
     end
-    system "./waf"
-    system "./waf", "install"
+    system "python3", "waf"
+    system "python3", "waf", "install"
 
     python_flags = [
       "--mode=release",
@@ -59,20 +54,9 @@ class Essentia < Formula
     ENV['PKG_CONFIG_PATH'] = "#{prefix}/lib/pkgconfig:" + ENV['PKG_CONFIG_PATH']
 
     if build.with? "python"
-      system "python3", "./waf", "configure", *python_flags
-      system "python3", "./waf"
-      system "python3", "./waf", "install"
-    end
-    if build.with? "python@2"
-      system "python2", "./waf", "configure", *python_flags
-      system "python2", "./waf"
-      system "python2", "./waf", "install"
-
-      venv = virtualenv_create(libexec, "python2")
-      venv.pip_install resource("six")
-      essentia_path = libexec/"lib/python2.7/site-packages"
-      pth_contents = "import site; site.addsitedir('#{essentia_path}')\n"
-      (lib/"python2.7/site-packages/homebrew-essentia.pth").write pth_contents
+      system "python3", "waf", "configure", *python_flags
+      system "python3", "waf"
+      system "python3", "waf", "install"
     end
   end
 
@@ -89,9 +73,6 @@ class Essentia < Formula
 
     if build.with? "python"
       system "python3", "-c", "#{py_test}"
-    end
-    if build.with? "python@2"
-      system "python2", "-c", "#{py_test}"
     end
   end
 end
