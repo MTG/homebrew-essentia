@@ -52,9 +52,11 @@ class Essentia < Formula
     python_flags = [
       "--mode=release",
       "--only-python",
-      "--pkg-config-path=#{prefix}/lib/pkgconfig/",
       "--prefix=#{prefix}"
     ]
+
+    # Adding path to newly installed Essentia
+    ENV['PKG_CONFIG_PATH'] = "#{prefix}/lib/pkgconfig:" + ENV['PKG_CONFIG_PATH']
 
     if build.with? "python"
       system "python3", "./waf", "configure", *python_flags
