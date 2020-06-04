@@ -12,7 +12,7 @@ class Gaia < Formula
   include Language::Python::Virtualenv
 
   depends_on "pkg-config"
-  depends_on "python@2"
+  depends_on "python@3.8"
   depends_on "swig"
   depends_on "libyaml"
   depends_on "eigen"
@@ -24,16 +24,23 @@ class Gaia < Formula
   end
 
   def install
-    venv = virtualenv_create(libexec, "python2")
-    venv.pip_install resource("PyYAML")
-    gaia_path = libexec/"lib/python2.7/site-packages"
-    pth_contents = "import site; site.addsitedir('#{gaia_path}')\n"
-    (lib/"python2.7/site-packages/homebrew-gaia.pth").write pth_contents
+    #venv = virtualenv_create(libexec, "python3")
+    #venv.pip_install resource("PyYAML")
 
-    system "python2", "waf", "configure", "--with-python-bindings", 
+    system Formula["python@3.8"].opt_bin/"python3", "waf", "configure", "--with-python-bindings",
                                           "--prefix=#{prefix}"
-    system "python2", "waf"
-    system "python2", "waf", "install"
+    system Formula["python@3.8"].opt_bin/"python3", "waf"
+    system Formula["python@3.8"].opt_bin/"python3", "waf", "install"
+
+    resource("PyYAML").stage do
+      system Formula["python@3.8"].opt_bin/"python3", *Language::Python.setup_install_args(libexec)
+    end
+
+    version = Language::Python.major_minor_version Formula["python@3.8"].opt_bin/"python3"
+    site_packages = "lib/python#{version}/site-packages"
+    pth_contents = "import site; site.addsitedir('#{libexec/site_packages}')\n"
+    (prefix/site_packages/"homebrew-gaia.pth").write pth_contents
+
   end
 
   #test do
