@@ -10,7 +10,7 @@ class Essentia < Formula
   depends_on "eigen"
   depends_on "libyaml"
   depends_on "fftw"
-  depends_on "ffmpeg"
+  depends_on "ffmpeg@2.8"
   depends_on "libsamplerate"
   depends_on "libtag"
   depends_on "chromaprint"
