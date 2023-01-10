@@ -16,7 +16,7 @@ class Gaia < Formula
   depends_on "swig"
   depends_on "libyaml"
   depends_on "eigen"
-  depends_on "cartr/qt4/qt@4"
+  depends_on "qt@5"
 
   resource "PyYAML" do
     url "https://files.pythonhosted.org/packages/e3/e8/b3212641ee2718d556df0f23f78de8303f068fe29cdaa7a91018849582fe/PyYAML-5.1.2.tar.gz"
