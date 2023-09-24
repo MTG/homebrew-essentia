@@ -7,8 +7,8 @@ class NumpyAT1233 < Formula
   head "https://github.com/numpy/numpy.git", branch: "main"
 
   depends_on "gcc" => :build # for gfortran
-  depends_on "libcython" => :build
-  depends_on "python@3.10" => [:build, :test]
+  depends_on "mtg/essentia/libcython@0.29.30" => :build
+  # depends_on "python@3.10" => [:build, :test]
   depends_on "python@3.9" => [:build, :test]
   depends_on "openblas"
 
@@ -37,7 +37,7 @@ class NumpyAT1233 < Formula
 
     pythons.each do |python|
       site_packages = Language::Python.site_packages(python)
-      ENV.prepend_path "PYTHONPATH", Formula["libcython"].opt_libexec/site_packages
+      ENV.prepend_path "PYTHONPATH", Formula["mtg/essentia/libcython@0.29.30"].opt_libexec/site_packages
 
       system python, "setup.py", "build", "--fcompiler=#{Formula["gcc"].opt_bin}/gfortran",
                                           "--parallel=#{ENV.make_jobs}"
