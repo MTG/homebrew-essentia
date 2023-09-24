@@ -12,6 +12,8 @@ class NumpyAT1233 < Formula
   depends_on "python@3.9" => [:build, :test]
   depends_on "openblas"
 
+  conflicts_with "numpy", because: "both install f2py and other binaries"
+
   fails_with gcc: "5"
 
   def pythons
@@ -42,6 +44,26 @@ class NumpyAT1233 < Formula
       system python, "setup.py", "build", "--fcompiler=#{Formula["gcc"].opt_bin}/gfortran",
                                           "--parallel=#{ENV.make_jobs}"
       system python, *Language::Python.setup_install_args(prefix, python)
+    end
+  end
+
+  def caveats
+    on_macos do
+      <<-EOS
+        This formula technically conflicts with the current Homebrew
+        version of `numpy`, as they both provide binaries. However,
+        the only result is that this formula can't be fully linked.
+
+        Since essentia only requires numpy's python bindings, there are
+        a few solutions (you only need to do one of the following):
+
+          1. `brew uninstall numpy` (easiest, only if you have no formulae that depend on numpy)
+          2. `brew unlink numpy`, then install this formula
+          3. If you need to keep `numpy` linked after installing this, you must run the
+             following to use this version of numpy when calling python3.9:
+
+            export PYTHONPATH="#{opt_prefix/Language::Python.site_packages(Formula["python@3.9"].opt_libexec/"bin/python")}"
+      EOS
     end
   end
 
