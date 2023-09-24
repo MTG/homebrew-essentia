@@ -14,14 +14,14 @@ class LibcythonAT02930 < Formula
     Users are advised to use `pip` to install cython
   EOS
 
-  depends_on "python@3.10" => [:build, :test]
+  # depends_on "python@3.10" => [:build, :test]
   depends_on "python@3.9" => [:build, :test]
 
   def pythons
     deps.map(&:to_formula)
         .select { |f| f.name.match?(/python@\d\.\d+/) }
         .map(&:opt_bin)
-        .map { |bin| bin/"python3" }
+        .map { |bin| bin/"python3.9" }
   end
 
   def install
